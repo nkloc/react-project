@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Post, User } from '../api/types'
 
 const PostItem = (props: Post) => {
-    const [author, setAuthor] = useState<User | null>(null)
+    const [user, setUser] = useState<User | null>(null)
 
     return (
         <Link to={`/post/${props.id}`} key={`key-${props.id}`}>
@@ -28,13 +28,13 @@ const PostItem = (props: Post) => {
                         </div>
                     </div>
                     <div className="content post-content">{props.body}</div>
-                    {author && (
+                    {user && (
                         <footer className="card-footer">
                             <Link
-                                to={`/users/${author.id}`}
+                                to={`/users/${user.id}`}
                                 className="card-footer-item"
                             >
-                                {author ? author.name : 'not defined'}
+                                {user ? user.name : 'not defined'}
                             </Link>
                         </footer>
                     )}

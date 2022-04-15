@@ -1,10 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { getPosts } from '../api/post'
 import { Post } from '../api/types'
 import PostItem from './PostItem'
+
+
 
 const PostsList = () => {
     const [posts, setPosts] = useState<Array<Post>>([])
     const [loading, setLoading] = useState(false)
+
+    async function _getPosts() {
+        const data = await getPosts()
+        setPosts(data)
+        setLoading(false)
+    }
+    useEffect(() => {
+        setLoading(true)
+        _getPosts()
+    }, [])
 
     function renderItem(values: Post) {
         return (

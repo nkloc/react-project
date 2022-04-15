@@ -30,7 +30,7 @@ const Header = () => {
                         <Link to="/post/new" className="navbar-item">
                             New post
                         </Link>
-                        <Link to="/users/new" className="navbar-item">
+                        <Link to="/user/new" className="navbar-item">
                             New user
                         </Link>
                         <Link to="/users" className="navbar-item">

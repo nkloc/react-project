@@ -1,6 +1,8 @@
-import React, { useReducer, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { getPost, updatePost, createPost, deletePost } from '../api/post'
 import { Picker_Picture, Post, PostContent, User } from '../api/types'
+import { getAllUser } from '../api/user'
 import Field from '../private/Field'
 import ImageGalleryPicker from './ImageGalleryPicker'
 
@@ -28,6 +30,15 @@ const EditPost = () => {
     let { id } = useParams() // post id from url
     const navigate = useNavigate() // create a navigate function instance
 
+    async function _getPost(id: number) {
+        const data = await getPost(id)
+        convertToFormData(data)
+    }
+    
+    useEffect(() => {
+        _getPost(Number(id))
+    }, [id])
+
     function handleModalPictureSubmit(picture: Picker_Picture) {
         setFormData({
             name: 'postImageUrl',
@@ -41,11 +52,18 @@ const EditPost = () => {
         // remove default reloading page
         event.preventDefault()
 
+        if (id) {
+            await updatePost(formData as Post)
+        } else {
+            await createPost(formData)
+        }
+
         // back to Home
         navigate('/')
     }
 
     async function handleDeletePost() {
+        await deletePost(Number(id))
         // back to Home
         navigate('/')
     }
@@ -88,15 +106,30 @@ const EditPost = () => {
         }
     }
 
+    async function _getUsers() {
+        const data = await getAllUser()
+        setUsers(data)
+    }
+
+    useEffect(() => {
+        _getUsers()
+    }, [])
+
+    useEffect(() => {
+        _getPost(Number(id))
+    }, [id])
+
     function getSelectedAuthor() {
         // prevent bad request and use a placeholder if no data
         if (formData.userId) {
-            // [WORK]
-            // You need to find the author name with the server
-            return '[TO DO]'
-        } else {
-            return 'Unknown author'
+            const selectedUser = users.find(
+                (user) => user.id === formData.userId
+            )
+            if (selectedUser) {
+                return selectedUser.name
+            } 
         }
+        return 'Unknown author'
     }
 
     return (
@@ -104,7 +137,7 @@ const EditPost = () => {
             <form className="post-form" onSubmit={handleAddOrCreatePost}>
                 <Field label="Title">
                     <input
-                        onBlur={handleChange}
+                        onChange={handleChange}
                         name="title"
                         className="input"
                         type="text"
@@ -114,7 +147,7 @@ const EditPost = () => {
                 </Field>
                 <Field label="Content">
                     <textarea
-                        onBlur={handleChange}
+                        onChange={handleChange}
                         name="body"
                         className="textarea"
                         placeholder="e.g. Hello world"

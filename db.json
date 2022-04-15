@@ -1,4 +1,57 @@
 {
-    "posts": [],
-    "users": []
+  "posts": [
+    {
+      "body": "Content 1",
+      "title": "title1",
+      "id": 5,
+      "postImageUrl": "https://picsum.photos/id/1001/5616/3744"
+    },
+    {
+      "userId": 2,
+      "title": "Avec un user",
+      "body": "sazsasa",
+      "postImageUrl": "https://picsum.photos/id/1000/5626/3635",
+      "id": 7
+    },
+    {
+      "title": "Post Title 18",
+      "body": "C'est un contenu",
+      "postImageUrl": "https://picsum.photos/id/0/5616/3744",
+      "id": 8
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz",
+      "address": {
+        "street": "Kulas Light",
+        "suite": "Apt. 556",
+        "city": "Gwenborough",
+        "zipcode": "92998-3874"
+      },
+      "phone": "1-770-736-8031 x56442",
+      "company": {
+        "name": "Romaguera-Crona"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Ervin Howell",
+      "username": "Antonette",
+      "email": "Shanna@melissa.tv",
+      "address": {
+        "street": "Victor Plains",
+        "suite": "Suite 879",
+        "city": "Wisokyburgh",
+        "zipcode": "90566-7771"
+      },
+      "phone": "010-692-6593 x09125",
+      "company": {
+        "name": "Deckow-Crist"
+      }
+    }
+  ]
 }

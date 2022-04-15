@@ -3,30 +3,27 @@ import { useParams } from 'react-router-dom'
 import { User } from '../api/types'
 import Field from '../private/Field'
 
-const UserProfile = () => {
-    const [author, setAuthor] = useState<User | null>(null)
 
-    let { id } = useParams() // get the id from url
-
+const UserProfile = (props: User) => {
     return (
-        author && (
+       (
             <div className="user-profile-wrapper">
                 <Field label="Name">
-                    <span>{author.name}</span>
+                    <span>{props.name}</span>
                 </Field>
                 <Field label="Email">
-                    <span>{author.email}</span>
+                    <span>{props.email}</span>
                 </Field>
                 <Field label="Company">
-                    <span>{author.company.name}</span>
+                    <span>{props.company.name}</span>
                 </Field>
                 <Field label="Phone">
-                    <span>{author.phone}</span>
+                    <span>{props.phone}</span>
                 </Field>
                 <Field label="Address">
-                    <span>{author.address.street} - </span>
-                    <span>{author.address.city} - </span>
-                    <span>{author.address.zipcode}</span>
+                    <span>{props.address.street} - </span>
+                    <span>{props.address.city} - </span>
+                    <span>{props.address.zipcode}</span>
                 </Field>
             </div>
         )
